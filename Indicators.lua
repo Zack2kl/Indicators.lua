@@ -76,29 +76,30 @@ local function on_paint()
 	for key, value in pairs(refs) do
 		if contains(inds, value.name) then
 			local tW, tH = measure_text(flag, key)
+			local checkbox, hotkey = value.ref[1], value.ref[2]
 
-			if value.ref[1] ~= nil and value.ref[2] ~= nil then
-				if get(value.ref[1]) and get(value.ref[2]) then
+			if checkbox ~= nil and hotkey ~= nil then
+				if get(checkbox) and get(hotkey) then
 					r, g, b, a = eR, eG, eB, eA
 				else
 					r, g, b, a = dR, dG, dB, dA
 				end
 
-			elseif value.ref[1] == nil and value.ref[2] ~= nil then
-				if get(value.ref[2]) then
+			elseif checkbox == nil and hotkey ~= nil then
+				if get(hotkey) then
 					r, g, b, a = eR, eG, eB, eA
 				else
 					r, g, b, a = dR, dG, dB, dA
 				end
 
-			elseif value.ref[1] ~= nil and value.ref[2] == nil then
-				if get(value.ref[1]) then
+			elseif checkbox ~= nil and hotkey == nil then
+				if get(checkbox) then
 					r, g, b, a = eR, eG, eB, eA
 				else
 					r, g, b, a = dR, dG, dB, dA
 				end
 			end
-			
+
 			text(x, y + (N * tH), r, g, b, a, flag, 0, key) -- value.name
 			N = N + 1
 		end
